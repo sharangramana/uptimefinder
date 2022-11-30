@@ -3,6 +3,7 @@ package com.personalprojects.uptimefinder.batch;
 import com.personalprojects.uptimefinder.model.ServiceDto;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
@@ -18,10 +19,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.PathResource;
+import org.springframework.core.io.UrlResource;
 
 import javax.sql.DataSource;
 
 @Configuration
+@EnableBatchProcessing
 public class CsvFileToDatabaseConfig {
 
     @Autowired
@@ -39,7 +43,11 @@ public class CsvFileToDatabaseConfig {
     @Bean
     public FlatFileItemReader<ServiceDto> csvServiceDetailsReader(){
         FlatFileItemReader<ServiceDto> reader = new FlatFileItemReader<ServiceDto>();
-        reader.setResource(new ClassPathResource("animescsv.csv"));
+        try {
+            reader.setResource(new ClassPathResource("static/services.csv"));
+        } catch (Exception e) {
+            System.out.println("Failed to read resource");
+        }
         reader.setLineMapper(new DefaultLineMapper<>() {{
             setLineTokenizer(new DelimitedLineTokenizer() {{
                 setNames(new String[] { "name", "websiteUrl", "frequency" });
@@ -61,7 +69,7 @@ public class CsvFileToDatabaseConfig {
     public JdbcBatchItemWriter<ServiceDto> csvServiceDetailsWriter() {
         JdbcBatchItemWriter<ServiceDto> csvAnimeWriter = new JdbcBatchItemWriter<>();
         csvAnimeWriter.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
-        csvAnimeWriter.setSql("INSERT INTO Service (name, website_url, frequency, enabled, createdAt, updatedAt) VALUES (:name, :website_url, :frequency, :enabled, :createdAt, :updatedAt)");
+        csvAnimeWriter.setSql("INSERT INTO Service (id, name, website_url, frequency, enabled, createdAt, updatedAt) VALUES (:id, :name, :websiteUrl, :frequency, :enabled, :createdAt, :updatedAt)");
         csvAnimeWriter.setDataSource(dataSource);
         return csvAnimeWriter;
     }

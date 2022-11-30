@@ -9,15 +9,12 @@ import com.personalprojects.uptimefinder.model.UptimeMonitorDto;
 import com.personalprojects.uptimefinder.repository.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import jakarta.annotation.PostConstruct;
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -42,6 +39,7 @@ public class UptimeMonitorService {
 	 */
 	public ServiceDto registerService(ServiceDto serviceDto) {
 		String url = GeneralHelper.trimHttpFromUrl(serviceDto.getWebsiteUrl());
+		serviceDto.setId(UUID.randomUUID().toString());
 		serviceDto.setWebsiteUrl(url);
 		serviceDto.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 		serviceDto.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
@@ -103,7 +101,7 @@ public class UptimeMonitorService {
 	 * @param serviceId
 	 * @param websiteUrl
 	 */
-	private void submitJobToScheduler(String frequency, int serviceId, String websiteUrl) {
+	public void submitJobToScheduler(String frequency, String serviceId, String websiteUrl) {
 		long period = GeneralHelper.getTTLSeconds(frequency);
 		ScheduledFuture<?> scheduledJob = executeJobScheduler(serviceId, websiteUrl, period);
 		scheduledJobMap.put(websiteUrl, scheduledJob);
@@ -127,7 +125,6 @@ public class UptimeMonitorService {
 			monitor.setStatus(UptimeStatus.DOWN.getStatus());
 			monitor.setDowntime(GeneralHelper.getFormattedDate(System.currentTimeMillis()));
 			System.out.println(url + " is Not Reachable");
-			e.printStackTrace();
 		}
 	}
 
@@ -179,7 +176,7 @@ public class UptimeMonitorService {
 	 * @param period     in hours/minutes
 	 * @return scheduled future job
 	 */
-	private ScheduledFuture<?> executeJobScheduler(int serviceId, String websiteUrl, long period) {
+	private ScheduledFuture<?> executeJobScheduler(String serviceId, String websiteUrl, long period) {
 		ScheduledFuture<?> scheduledJob = scheduledExecutor.scheduleAtFixedRate(new Runnable() {
 
 			@Override

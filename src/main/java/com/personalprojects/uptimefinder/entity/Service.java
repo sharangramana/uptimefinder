@@ -2,31 +2,40 @@ package com.personalprojects.uptimefinder.entity;
 
 import com.personalprojects.uptimefinder.model.ServiceDto;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "Service")
-public class Service {
+public class Service implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	@Column(name = "id")
+	private String id;
 
+	@Column(name = "name")
 	private String name;
+	@Column(name = "website_url")
 	private String website_url;
+	@Column(name = "frequency")
 	private String frequency;
+
+	@Column(name = "enabled")
 	private boolean enabled;
 
+	@Column(name = "createdAt")
 	private Timestamp createdAt;
 
+	@Column(name = "updatedAt")
 	private Timestamp updatedAt;
 
 	public Service() {
 	}
 
 	public Service(ServiceDto serviceDto) {
+		this.setId(serviceDto.getId());
 		this.setName(serviceDto.getName());
 		this.setWebsite_url(serviceDto.getWebsiteUrl());
 		this.setFrequency(serviceDto.getFrequency());
@@ -35,11 +44,11 @@ public class Service {
 		this.setUpdatedAt(serviceDto.getUpdatedAt());
 	}
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
