@@ -1,7 +1,8 @@
+CREATE database uptimefinder;
 USE `uptimefinder`;
 
 CREATE TABLE `Service`(
-	`id` int AUTO_INCREMENT NOT NULL,
+	`id` varchar(50) NOT NULL,
 	`name` varchar(50) NOT NULL,
 	`website_url` varchar(50) NOT NULL,
 	`frequency` varchar(50) NOT NULL,
@@ -17,7 +18,7 @@ CREATE TABLE `Service`(
 CREATE TABLE `UptimeMonitorTable`(
 	`id` int AUTO_INCREMENT NOT NULL,
 	`website_url` varchar(50) NOT NULL,
-	`serviceId` int NULL,
+	`serviceId` varchar(50) NULL,
 	`status` varchar(50) NULL,
 	`uptime` Datetime NULL,
 	`downtime` Datetime NULL,

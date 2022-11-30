@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class ServiceDto {
 
-	private int id;
+	private String id;
 	private String name;
 	private String websiteUrl;
 	private String frequency;
@@ -16,13 +16,14 @@ public class ServiceDto {
 	public ServiceDto() {
 	}
 
-	public ServiceDto(String name, String websiteUrl, String frequency) {
+	public ServiceDto(String id, String name, String websiteUrl, String frequency) {
+		this.id = id;
 		this.name = name;
 		this.websiteUrl = websiteUrl;
 		this.frequency = frequency;
 	}
 
-	public ServiceDto(int id, String name, String websiteUrl, boolean enabled, String frequency, Timestamp createdAt, Timestamp updatedAt) {
+	public ServiceDto(String id, String name, String websiteUrl, boolean enabled, String frequency, Timestamp createdAt, Timestamp updatedAt) {
 		this.id = id;
 		this.name = name;
 		this.websiteUrl = websiteUrl;
@@ -32,11 +33,11 @@ public class ServiceDto {
 		this.updatedAt = updatedAt;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class ServiceRepository {
 	 */
 	@SuppressWarnings("rawtypes")
 	@Transactional
-	public void updateService(boolean isEnable, int id) {
+	public void updateService(boolean isEnable, String id) {
 		Query query = getSession().createQuery("UPDATE Service SET enabled=:isEnable, updatedAt=:updatedAt WHERE id=:id");
 		query.setParameter("isEnable", isEnable);
 		query.setParameter("id", id);
@@ -116,7 +116,7 @@ public class ServiceRepository {
 	 * @param id
 	 * @return Service
 	 */
-	public Service getService(int id) {
+	public Service getService(String id) {
 		CriteriaBuilder builder = getSession().getCriteriaBuilder();
 		CriteriaQuery<Service> criteria = builder.createQuery(Service.class);
 		Root<Service> root = criteria.from(Service.class);

@@ -192,6 +192,35 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Batch upload services",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "{{host}}/service/register/batch",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"service",
+						"register",
+						"batch"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [

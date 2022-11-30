@@ -1,27 +1,40 @@
 package com.personalprojects.uptimefinder.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "UptimeMonitorTable")
-public class UptimeMonitor {
+public class UptimeMonitor implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Integer id;
 
+	@Column(name = "website_url")
 	private String website_url;
-	private int serviceId;
+
+	@Column(name = "serviceId")
+	private String serviceId;
+
+	@Column(name = "status")
 	private String status;
+
+	@Column(name = "uptime")
 	private Timestamp uptime;
+
+	@Column(name = "downtime")
 	private Timestamp downtime;
+
+	@Column(name = "responseTime")
 	private double responseTime;
 
 	public UptimeMonitor() {
 	}
 
-	public UptimeMonitor(String website_url, int serviceId, String status, Timestamp uptime, Timestamp downtime,
+	public UptimeMonitor(String website_url, String serviceId, String status, Timestamp uptime, Timestamp downtime,
 						 double responseTime) {
 		this.website_url = website_url;
 		this.serviceId = serviceId;
@@ -47,11 +60,11 @@ public class UptimeMonitor {
 		this.website_url = website_url;
 	}
 
-	public int getServiceId() {
+	public String getServiceId() {
 		return serviceId;
 	}
 
-	public void setServiceId(int serviceId) {
+	public void setServiceId(String serviceId) {
 		this.serviceId = serviceId;
 	}
 
