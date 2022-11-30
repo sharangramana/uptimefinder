@@ -11,9 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -95,9 +92,6 @@ public class UptimeController {
 		FileOutputStream output = new FileOutputStream(fileLocation);
 		output.write(multipartFile.getBytes());
 		output.close();
-
-//		File file = new File("/Users/sharangramana/Documents/projects/uptimefinder/src/main/resources");
-//		multipartFile.transferTo(file);
 
 		JobParameters jobParameters = new JobParametersBuilder()
 				.toJobParameters();
