@@ -43,13 +43,13 @@ public class UptimeController {
 	@RequestMapping(value = "/disable", consumes = "application/json", method = RequestMethod.PUT)
 	public ResponseEntity<String> disableService(@RequestBody ServiceDto serviceDto) {
 		uptimeMonitorService.disableService(serviceDto);
-		return new ResponseEntity("Service Disabled Succesfully", HttpStatus.OK);
+		return new ResponseEntity("Service Disabled Successfully", HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/enable", consumes = "application/json", method = RequestMethod.PUT)
 	public ResponseEntity<String> enableService(@RequestBody ServiceDto serviceDto) {
 		uptimeMonitorService.enableService(serviceDto);
-		return new ResponseEntity("Service enabled Succesfully", HttpStatus.OK);
+		return new ResponseEntity("Service enabled Successfully", HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/status", method = RequestMethod.GET)
