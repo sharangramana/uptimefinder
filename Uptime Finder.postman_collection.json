@@ -1,0 +1,224 @@
+{
+	"info": {
+		"_postman_id": "7aa82afc-5676-4925-bd3f-ecfadaf5fa56",
+		"name": "Uptime Finder",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11515074"
+	},
+	"item": [
+		{
+			"name": "Get all status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/service/view?page=1&pageSize=10",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"service",
+						"view"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Google2",
+							"disabled": true
+						},
+						{
+							"key": "frequency",
+							"value": "1m",
+							"disabled": true
+						},
+						{
+							"key": "websiteUrl",
+							"value": "www.google.com",
+							"disabled": true
+						},
+						{
+							"key": "enabledStatus",
+							"value": "false",
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register service to check",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n    \"name\": \"Github2\",\n    \"websiteUrl\": \"www.github.com\", \n    \"frequency\": \"5m\" \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/service/register",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"service",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Enable Uptime check for service",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n    \"id\": 1, \n    \"websiteUrl\":\"www.google.com\" \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/service/enable",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"service",
+						"enable"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check the status of service",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/service/status?websiteUrl=www.google.com",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"service",
+						"status"
+					],
+					"query": [
+						{
+							"key": "websiteUrl",
+							"value": "www.google.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Disable uptime check for service",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n    \"id\": 2, \n    \"websiteUrl\":\"www.google.com\" \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/service/disable",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"service",
+						"disable"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get service status logs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/service/status/logs?page=1&pageSize=15",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"service",
+						"status",
+						"logs"
+					],
+					"query": [
+						{
+							"key": "websiteUrl",
+							"value": "www.google.com",
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "15"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
