@@ -2,7 +2,7 @@ package com.personalprojects.uptimefinder.utils;
 
 public enum UptimeStatus {
 
-	UP("UP"), DOWN("DOWN"), WRONG_DOMAIN("WRONG DOMAIN");
+	UP("UP"), DOWN("DOWN");
 
 	private String statusValue;
 

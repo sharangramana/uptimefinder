@@ -196,7 +196,7 @@ public class UptimeMonitorService {
 	}
 
 	/**
-	 * Cancel the Monitoring Job of website if Service is been set disable/deactivate
+	 * Cancel the Monitoring Job of website if Service is being set disable/deactivate
 	 * 
 	 * @param websiteUrl
 	 */
